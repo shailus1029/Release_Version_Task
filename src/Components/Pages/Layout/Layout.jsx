@@ -1,7 +1,12 @@
 import React, { Component } from "react";
-import { Table, Button, Input, Icon, Progress, Popover } from "antd";
+import { Table, Input, Icon, Popover } from "antd";
 import "antd/dist/antd.css";
 import "./Layout.css";
+import InputField from "../../Atoms/InputField/InputField.jsx";
+import ButtonField from "../../Atoms/ButtonField/ButtonField.jsx";
+import ProgressBar from "../../Atoms/ProgressBar/ProgressBar.jsx";
+import DateField from "../../Atoms/DateField/DateField.jsx";
+import versionData from "../../../utils/versionData.json";
 
 const content = (
   <div className="content">
@@ -9,6 +14,7 @@ const content = (
     <p>Delete</p>
   </div>
 );
+
 const columns = [
   {
     title: "Version",
@@ -24,7 +30,7 @@ const columns = [
   {
     title: "Progress",
     dataIndex: "progress",
-    render: progress => <Progress className="progress" percent={progress} status="active" showInfo={false} />
+    render: progress => <ProgressBar progress={progress} />
   },
   {
     title: "Start date",
@@ -53,42 +59,16 @@ class Layout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [
-        {
-          version: "1.1",
-          status: "IN PROGRESS",
-          progress: 7,
-          start: "new Date()",
-          release: "new Date ()",
-          description: "Awesome"
-        },
-        {
-          version: "1.1",
-          status: "IN PROGRESS",
-          progress: 50,
-          start: "new Date()",
-          release: "new Date ()",
-          description: "Awesome"
-        },
-        {
-          version: "1.1",
-          status: "RELEASED",
-          progress: 100,
-          start: " new Date()",
-          release: "new Date ()",
-          description: "Awesome"
-        },
-        {
-          version: "1.1",
-          status: "UNRELEASED",
-          progress: 0,
-          start: "new Date()",
-          release: "new Date ()",
-          description: "Awesome"
-        }
-      ]
+      versions: []
     };
   }
+
+  componentDidMount() {
+    this.setState({
+      versions: [...versionData]
+    });
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -98,9 +78,9 @@ class Layout extends Component {
             <h1>Releases</h1>
             <div className="tabs">
               <div>
-                <Button type="primary">IN PROGRESS</Button>&nbsp;&nbsp;
-                <Button type="primary">UNRELEASED</Button>&nbsp;&nbsp;
-                <Button type="primary">RELEASED</Button>&nbsp;&nbsp;
+                <ButtonField margin="5px" type="primary" buttonText="IN PROGRESS" />
+                <ButtonField margin="5px" type="primary" buttonText="UNRELEASED" />
+                <ButtonField margin="5px" type="primary" buttonText="RELEASED" />
               </div>
               <div>
                 <Input
@@ -112,13 +92,13 @@ class Layout extends Component {
             </div>
           </div>
           <div className="table-layout">
-            <Table columns={columns} dataSource={this.state.data} size="middle" pagination={false} />
+            <Table columns={columns} dataSource={this.state.versions} size="middle" pagination={false} />
             <div className="table-inputs">
-              <Input placeholder="Version name" style={{ width: "390px" }} />
-              <Input placeholder="Start date" style={{ width: "158px" }} />
-              <Input placeholder="Release date" style={{ width: "168px" }} />
-              <Input placeholder="Description" style={{ width: "170px" }} />
-              <Button type="primary">Add</Button>
+              <InputField inputFieldWidth="390px" placeholderText="Version Name" />
+              <DateField handleDateChange={this.handleDateChange} placeholderText="Start Date" />
+              <DateField handleDateChange={this.handleDateChange} placeholderText="Release Date" />
+              <InputField inputFieldWidth="170px" placeholderText="Descriptions" />
+              <ButtonField type="primary" buttonText="Add" />
             </div>
           </div>
         </div>

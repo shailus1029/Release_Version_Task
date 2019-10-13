@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Home.css";
 import { withRouter } from "react-router-dom";
-import Layout from "../../Components/Layout/Layout.jsx";
+import Layout from "../../Components/Pages/Layout/Layout.jsx";
 
 class Home extends Component {
   render() {

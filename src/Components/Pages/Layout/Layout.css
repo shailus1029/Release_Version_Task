@@ -53,18 +53,6 @@
     border-style: none;
 }
 
-.progress {
-    word-break: normal;  
-  }
-
-.progress .ant-progress-inner{
-    background-color: darkblue;
-}
-
-.progress .ant-progress-bg{
-    background-color: forestgreen;
-}
-
 .action-icon{
      color: black;
      font-weight:bold;

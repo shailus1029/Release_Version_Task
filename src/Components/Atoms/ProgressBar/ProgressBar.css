@@ -1,0 +1,11 @@
+.progress {
+    word-break: normal;  
+  }
+
+.progress .ant-progress-inner{
+    background-color: darkblue;
+}
+
+.progress .ant-progress-bg{
+    background-color: forestgreen;
+}
