@@ -1,0 +1,88 @@
+.layout{
+    margin : 0 80px;
+}
+
+.header, .table-layout{
+    padding: 40px;
+    border: 1px solid darkgrey ;
+    color: black;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+
+.tabs{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.tabs .ant-btn-primary{
+    font-weight: bold;
+    color: black;
+    background: lightskyblue;
+    border-style: none;
+}
+
+.tabs .anticon {
+    font-weight: bold;
+    color: black; 
+}
+
+.table-layout .ant-input{
+    background: #dddada;
+    color: black !important;
+    margin: 0 8px 0 0;
+}
+
+.table-layout .ant-table-body, .table-layout .ant-table-header-column{
+    font-weight: bold;
+}
+
+.table-layout .ant-input::placeholder{
+    color: #918b8b;
+}
+
+.table-inputs{
+    margin: 10px 0;
+}
+
+.table-inputs .ant-btn-primary{
+    font-weight: bold;
+    color: white;
+    background: darkblue;
+    border-style: none;
+}
+
+.progress {
+    word-break: normal;  
+  }
+
+.progress .ant-progress-inner{
+    background-color: darkblue;
+}
+
+.progress .ant-progress-bg{
+    background-color: forestgreen;
+}
+
+.action-icon{
+     color: black;
+     font-weight:bold;
+    font-size:26px;
+}
+
+.green{
+    background-color: green;
+}
+
+.red{
+    background-color: red;
+}
+
+.yellow{
+    background-color: yellow;
+}
+
+.content p {
+    margin: 0;
+}

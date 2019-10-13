@@ -1,0 +1,7 @@
+
+# Adding Files to git Ignore
+
+node_modules/
+
+package-lock.json
+
