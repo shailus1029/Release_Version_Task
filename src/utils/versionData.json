@@ -5,7 +5,7 @@
     "status": "IN PROGRESS",
     "progress": 0,
     "startDate": "01/06/2017",
-    "releaseDate": "---",
+    "releaseDate": null,
     "description": "Awesome..."
   },
   {
@@ -14,7 +14,7 @@
     "status": "UNRELEASED",
     "progress": 30,
     "startDate": "08/22/2016",
-    "releaseDate": "---",
+    "releaseDate": null,
     "description": "---"
   },
   {
@@ -23,7 +23,7 @@
     "status": "UNRELEASED",
     "progress": 30,
     "startDate": "08/22/2016",
-    "releaseDate": "---",
+    "releaseDate": null,
     "description": "---"
   },
   {
@@ -32,7 +32,7 @@
     "status": "RELEASED",
     "progress": 100,
     "startDate": "07/05/2016",
-    "releaseDate": "28/09/2016",
+    "releaseDate": "09/28/2016",
     "description": "Version 1.8"
   },
   {
@@ -50,7 +50,7 @@
     "status": "RELEASED",
     "progress": 100,
     "startDate": "06/12/2016",
-    "releaseDate": "28/09/2016",
+    "releaseDate": "09/28/2016",
     "description": "Version 1.3"
   },
   {

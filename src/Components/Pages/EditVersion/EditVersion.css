@@ -1,0 +1,16 @@
+.editDiv {
+  margin: 10px;
+}
+
+.ant-calendar-picker-input.ant-input {
+  width: 250px;
+  margin-left: -10px;
+}
+
+.updateBtn {
+  padding-left: 10px;
+}
+
+.marginLeft {
+  margin-left: 10px;
+}

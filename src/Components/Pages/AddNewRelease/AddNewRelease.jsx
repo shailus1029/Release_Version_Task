@@ -87,7 +87,7 @@ class AddNewRelease extends Component {
           placeholderText="Version Name"
           handleChange={this.handleVersionName}
         />
-        <DateField handleDateChange={this.hand} placeholderText="Start Date" />
+        <DateField handleDateChange={this.handleStartDate} placeholderText="Start Date" />
         <DateField handleDateChange={this.handleReleaseChange} placeholderText="Release Date" />
         <InputField
           inputFieldWidth="170px"

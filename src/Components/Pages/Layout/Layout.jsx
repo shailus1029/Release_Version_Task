@@ -5,6 +5,7 @@ import "./Layout.css";
 import ProgressBar from "../../Atoms/ProgressBar/ProgressBar.jsx";
 import AddNewRelease from "../AddNewRelease/AddNewRelease.jsx";
 import Header from "../Header/Header.jsx";
+import EditVersion from "../EditVersion/EditVersion.jsx";
 import versionData from "../../../utils/versionData.json";
 
 class Layout extends Component {
@@ -13,7 +14,9 @@ class Layout extends Component {
     this.state = {
       versions: [],
       filteredVersions: [],
-      isAdded: false
+      isAdded: false,
+      isEdit: false,
+      editVersion: {}
     };
   }
 
@@ -25,7 +28,8 @@ class Layout extends Component {
 
   handleRelease = newRelease => {
     const { versions } = this.state;
-    versions.unshift(newRelease);
+    const updateNewRelease = { ...newRelease, id: versions.length + 1 };
+    versions.unshift(updateNewRelease);
     this.setState({
       versions: versions,
       isAdded: true
@@ -75,8 +79,38 @@ class Layout extends Component {
     });
   };
 
+  editVersion = record => {
+    this.setState({
+      isEdit: true,
+      editVersion: record
+    });
+  };
+
+  closeEditModal = () => {
+    this.setState({
+      isEdit: false
+    });
+  };
+
+  updateVersion = updatedVersion => {
+    const { versions } = this.state;
+    const OldVersions = versions.map(version => {
+      if (version.id === updatedVersion.id) {
+        (version.versionName = updatedVersion.versionName),
+          (version.startDate = updatedVersion.startDate),
+          (version.releaseDate = updatedVersion.releaseDate),
+          (version.description = updatedVersion.description);
+      }
+      return version;
+    });
+    this.setState({
+      versions: OldVersions,
+      isEdit: false
+    });
+  };
+
   render() {
-    const { isAdded, filteredVersions, versions } = this.state;
+    const { isAdded, isEdit, editVersion, filteredVersions, versions } = this.state;
     const columns = [
       {
         title: "Version",
@@ -100,7 +134,8 @@ class Layout extends Component {
       },
       {
         title: "Release date",
-        dataIndex: "releaseDate"
+        dataIndex: "releaseDate",
+        render: releaseDate => <span>{releaseDate !== null ? releaseDate : "---"} </span>
       },
       {
         title: "Description",
@@ -108,19 +143,18 @@ class Layout extends Component {
       },
       {
         title: "Actions",
-        dataIndex: "id",
         render: record => (
           <span>
             <i
               className="fa fa-edit mr-2 editIcon"
               onClick={() => {
-                alert("hello");
+                this.editVersion(record);
               }}
             />
             <i
               className="fa fa-trash mr-2 closeIcon"
               onClick={() => {
-                this.deleteVersion(record);
+                this.deleteVersion(record.id);
               }}
             />
           </span>
@@ -143,6 +177,15 @@ class Layout extends Component {
             <AddNewRelease isAdded={isAdded} addRelease={this.handleRelease} resetIsAdded={this.resetIsAdded} />
           </div>
         </div>
+        {isEdit ? (
+          <EditVersion
+            openModal={isEdit}
+            data={editVersion}
+            handleUpdate={this.updateVersion}
+            closeModal={this.closeEditModal}
+            title={"Edit Version"}
+          />
+        ) : null}
       </React.Fragment>
     );
   }
