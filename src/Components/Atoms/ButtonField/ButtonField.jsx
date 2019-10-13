@@ -3,7 +3,7 @@ import { Button } from "antd";
 
 const ButtonField = props => {
   return (
-    <Button style={{ margin: `${props.margin}` }} type={props.type}>
+    <Button style={{ margin: `${props.margin}` }} type={props.type} onClick={props.handleChange}>
       {props.buttonText}
     </Button>
   );

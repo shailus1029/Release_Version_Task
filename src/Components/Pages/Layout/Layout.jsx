@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import { Table, Input, Icon, Popover } from "antd";
 import "antd/dist/antd.css";
 import "./Layout.css";
-import InputField from "../../Atoms/InputField/InputField.jsx";
 import ButtonField from "../../Atoms/ButtonField/ButtonField.jsx";
 import ProgressBar from "../../Atoms/ProgressBar/ProgressBar.jsx";
-import DateField from "../../Atoms/DateField/DateField.jsx";
+import AddNewRelease from "../AddNewRelease/AddNewRelease.jsx";
 import versionData from "../../../utils/versionData.json";
 
 const content = (
@@ -18,7 +17,7 @@ const content = (
 const columns = [
   {
     title: "Version",
-    dataIndex: "version"
+    dataIndex: "versionName"
   },
   {
     title: "Status",
@@ -34,11 +33,11 @@ const columns = [
   },
   {
     title: "Start date",
-    dataIndex: "start"
+    dataIndex: "startDate"
   },
   {
     title: "Release date",
-    dataIndex: "release"
+    dataIndex: "releaseDate"
   },
   {
     title: "Description",
@@ -59,7 +58,8 @@ class Layout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      versions: []
+      versions: [],
+      isAdded: false
     };
   }
 
@@ -69,7 +69,23 @@ class Layout extends Component {
     });
   }
 
+  handleRelease = newRelease => {
+    const { versions } = this.state;
+    versions.unshift(newRelease);
+    this.setState({
+      versions: versions,
+      isAdded: true
+    });
+  };
+
+  resetIsAdded = () => {
+    this.setState({
+      isAdded: false
+    });
+  };
+
   render() {
+    const { isAdded } = this.state;
     return (
       <React.Fragment>
         <div className="layout">
@@ -93,13 +109,7 @@ class Layout extends Component {
           </div>
           <div className="table-layout">
             <Table columns={columns} dataSource={this.state.versions} size="middle" pagination={false} />
-            <div className="table-inputs">
-              <InputField inputFieldWidth="390px" placeholderText="Version Name" />
-              <DateField handleDateChange={this.handleDateChange} placeholderText="Start Date" />
-              <DateField handleDateChange={this.handleDateChange} placeholderText="Release Date" />
-              <InputField inputFieldWidth="170px" placeholderText="Descriptions" />
-              <ButtonField type="primary" buttonText="Add" />
-            </div>
+            <AddNewRelease isAdded={isAdded} addRelease={this.handleRelease} resetIsAdded={this.resetIsAdded} />
           </div>
         </div>
       </React.Fragment>
