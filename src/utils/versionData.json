@@ -1,5 +1,6 @@
 [
   {
+    "id": "8",
     "versionName": "Version 4.0",
     "status": "IN PROGRESS",
     "progress": 0,
@@ -8,6 +9,7 @@
     "description": "Awesome..."
   },
   {
+    "id": "7",
     "versionName": "Version 3.0",
     "status": "UNRELEASED",
     "progress": 30,
@@ -16,6 +18,7 @@
     "description": "---"
   },
   {
+    "id": "6",
     "versionName": "Version 2.0",
     "status": "UNRELEASED",
     "progress": 30,
@@ -24,6 +27,7 @@
     "description": "---"
   },
   {
+    "id": "5",
     "versionName": "Version 1.8",
     "status": "RELEASED",
     "progress": 100,
@@ -32,6 +36,7 @@
     "description": "Version 1.8"
   },
   {
+    "id": "4",
     "versionName": "Version 1.5",
     "status": "RELEASED",
     "progress": 100,
@@ -40,6 +45,7 @@
     "description": "Version 1.5"
   },
   {
+    "id": "3",
     "versionName": "Version 1.3",
     "status": "RELEASED",
     "progress": 100,
@@ -48,6 +54,7 @@
     "description": "Version 1.3"
   },
   {
+    "id": "2",
     "versionName": "Version 1.2",
     "status": "RELEASED",
     "progress": 100,
@@ -56,6 +63,7 @@
     "description": "Version 1.2"
   },
   {
+    "id": "1",
     "versionName": "Version 1.0",
     "status": "RELEASED",
     "progress": 100,

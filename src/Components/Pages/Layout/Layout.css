@@ -60,3 +60,15 @@
 .statusBtn:focus {
     background-color: #23d8a0 !important;
 }
+
+.closeIcon {
+    color: red !important;
+    cursor: pointer;
+  }
+  
+.editIcon {
+    cursor: pointer;
+    color: green !important;
+    margin-right: 5px;
+    margin-left: 10px;
+}

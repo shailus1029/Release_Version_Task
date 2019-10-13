@@ -1,58 +1,11 @@
 import React, { Component } from "react";
-import { Table, Icon, Popover } from "antd";
+import { Table } from "antd";
 import "antd/dist/antd.css";
 import "./Layout.css";
 import ProgressBar from "../../Atoms/ProgressBar/ProgressBar.jsx";
 import AddNewRelease from "../AddNewRelease/AddNewRelease.jsx";
 import Header from "../Header/Header.jsx";
 import versionData from "../../../utils/versionData.json";
-
-const content = (
-  <div className="content">
-    <p>Edit</p>
-    <p>Delete</p>
-  </div>
-);
-
-const columns = [
-  {
-    title: "Version",
-    dataIndex: "versionName"
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    render: status => (
-      <span className={status === "RELEASED" ? "green" : status === "UNRELEASED" ? "red" : "yellow"}>{status}</span>
-    )
-  },
-  {
-    title: "Progress",
-    dataIndex: "progress",
-    render: progress => <ProgressBar progress={progress} />
-  },
-  {
-    title: "Start date",
-    dataIndex: "startDate"
-  },
-  {
-    title: "Release date",
-    dataIndex: "releaseDate"
-  },
-  {
-    title: "Description",
-    dataIndex: "description"
-  },
-  {
-    title: "Actions",
-    dataIndex: "actions",
-    render: action => (
-      <Popover placement="right" content={content} trigger="click" className="popover">
-        <Icon type="more" className="action-icon" rotate="90" />
-      </Popover>
-    )
-  }
-];
 
 class Layout extends Component {
   constructor(props) {
@@ -87,7 +40,7 @@ class Layout extends Component {
 
   filterVersionsByStatus = type => {
     const { versions } = this.state;
-    const filteredVersions = versions.filter(function(version) {
+    const filteredVersions = versions.filter(version => {
       return version.status === type;
     });
     this.setState({
@@ -103,7 +56,7 @@ class Layout extends Component {
         filteredVersions: []
       });
     } else {
-      const filteredVersions = versions.filter(function(version) {
+      const filteredVersions = versions.filter(version => {
         return version.versionName.includes(searchVal) || version.description.includes(searchVal);
       });
       this.setState({
@@ -112,8 +65,68 @@ class Layout extends Component {
     }
   };
 
+  deleteVersion = id => {
+    const { versions } = this.state;
+    const remainingArray = versions.filter(version => {
+      return version.id !== id;
+    });
+    this.setState({
+      versions: remainingArray
+    });
+  };
+
   render() {
     const { isAdded, filteredVersions, versions } = this.state;
+    const columns = [
+      {
+        title: "Version",
+        dataIndex: "versionName"
+      },
+      {
+        title: "Status",
+        dataIndex: "status",
+        render: status => (
+          <span className={status === "RELEASED" ? "green" : status === "UNRELEASED" ? "red" : "yellow"}>{status}</span>
+        )
+      },
+      {
+        title: "Progress",
+        dataIndex: "progress",
+        render: progress => <ProgressBar progress={progress} />
+      },
+      {
+        title: "Start date",
+        dataIndex: "startDate"
+      },
+      {
+        title: "Release date",
+        dataIndex: "releaseDate"
+      },
+      {
+        title: "Description",
+        dataIndex: "description"
+      },
+      {
+        title: "Actions",
+        dataIndex: "id",
+        render: record => (
+          <span>
+            <i
+              className="fa fa-edit mr-2 editIcon"
+              onClick={() => {
+                alert("hello");
+              }}
+            />
+            <i
+              className="fa fa-trash mr-2 closeIcon"
+              onClick={() => {
+                this.deleteVersion(record);
+              }}
+            />
+          </span>
+        )
+      }
+    ];
 
     return (
       <React.Fragment>
@@ -121,6 +134,7 @@ class Layout extends Component {
           <Header filterVersionsByStatus={this.filterVersionsByStatus} handleSearch={this.handleSearch} />
           <div className="table-layout">
             <Table
+              rowKey={record => record.id}
               columns={columns}
               dataSource={filteredVersions.length === 0 ? versions : filteredVersions}
               size="middle"
