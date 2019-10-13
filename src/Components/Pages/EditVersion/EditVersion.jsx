@@ -5,6 +5,7 @@ import InputField from "../../Atoms/InputField/InputField.jsx";
 import ButtonField from "../../Atoms/ButtonField/ButtonField.jsx";
 import DateField from "../../Atoms/DateField/DateField.jsx";
 import "./EditVersion.css";
+import moment from "moment";
 
 class EditVersion extends Component {
   constructor(props) {
@@ -14,7 +15,8 @@ class EditVersion extends Component {
       versionName: "",
       startDate: "",
       releaseDate: "",
-      description: ""
+      description: "",
+      error: ""
     };
   }
 
@@ -24,40 +26,59 @@ class EditVersion extends Component {
       id: data.id,
       versionName: data.versionName,
       startDate: data.startDate,
-      releaseDate: data.releaseDate,
+      releaseDate: data.releaseDate !== null ? data.releaseDate : moment().format("l"),
       description: data.description
     });
   }
 
   handleStartDate = (date, dateString) => {
     this.setState({
-      startDate: dateString
+      startDate: dateString,
+      error: ""
     });
   };
 
   handleReleaseChange = (date, dateString) => {
     this.setState({
-      releaseDate: dateString
+      releaseDate: dateString,
+      error: ""
     });
   };
 
   handleVersionName = event => {
     const value = event.target.value;
     this.setState({
-      versionName: value
+      versionName: value,
+      error: ""
     });
   };
 
   handleDescription = event => {
     const value = event.target.value;
     this.setState({
-      description: value
+      description: value,
+      error: ""
     });
   };
 
   handleUpdate = () => {
     const { handleUpdate } = this.props;
-    handleUpdate(this.state);
+    const data = { ...this.state };
+    let isError = false;
+    Object.keys(data).map(function(key, index) {
+      if (key !== "error") {
+        if (data[key.toString()] === "" || data[key.toString()] === undefined || data[key.toString()] === null) {
+          isError = true;
+        }
+      }
+    });
+    if (isError) {
+      this.setState({
+        error: "Please fill all the fields ***"
+      });
+    } else {
+      handleUpdate(this.state);
+    }
   };
 
   render() {
@@ -113,6 +134,9 @@ class EditVersion extends Component {
                   buttonText="Cancel"
                   handleChange={this.props.closeModal}
                 />
+              </div>
+              <div>
+                <p style={{ color: "red" }}>{this.state.error}</p>
               </div>
             </div>
           </Modal>
