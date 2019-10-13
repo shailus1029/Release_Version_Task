@@ -1,0 +1,27 @@
+.header{
+    padding: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border: 1px solid darkgrey ;
+    color: black;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+
+.tabs{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.tabs .ant-btn-primary{
+    font-weight: bold;
+    color: black;
+    background: lightskyblue;
+    border-style: none;
+}
+
+.tabs .anticon {
+    font-weight: bold;
+    color: black; 
+}

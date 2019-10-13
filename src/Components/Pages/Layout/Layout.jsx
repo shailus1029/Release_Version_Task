@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Table, Input, Icon, Popover } from "antd";
+import { Table, Icon, Popover } from "antd";
 import "antd/dist/antd.css";
 import "./Layout.css";
-import ButtonField from "../../Atoms/ButtonField/ButtonField.jsx";
 import ProgressBar from "../../Atoms/ProgressBar/ProgressBar.jsx";
 import AddNewRelease from "../AddNewRelease/AddNewRelease.jsx";
+import Header from "../Header/Header.jsx";
 import versionData from "../../../utils/versionData.json";
 
 const content = (
@@ -59,6 +59,7 @@ class Layout extends Component {
     super(props);
     this.state = {
       versions: [],
+      filteredVersions: [],
       isAdded: false
     };
   }
@@ -84,31 +85,47 @@ class Layout extends Component {
     });
   };
 
+  filterVersionsByStatus = type => {
+    const { versions } = this.state;
+    const filteredVersions = versions.filter(function(version) {
+      return version.status === type;
+    });
+    this.setState({
+      filteredVersions: filteredVersions
+    });
+  };
+
+  handleSearch = event => {
+    const { versions } = this.state;
+    const searchVal = event.target.value;
+    if (searchVal === "") {
+      this.setState({
+        filteredVersions: []
+      });
+    } else {
+      const filteredVersions = versions.filter(function(version) {
+        return version.versionName.includes(searchVal) || version.description.includes(searchVal);
+      });
+      this.setState({
+        filteredVersions: filteredVersions
+      });
+    }
+  };
+
   render() {
-    const { isAdded } = this.state;
+    const { isAdded, filteredVersions, versions } = this.state;
+
     return (
       <React.Fragment>
         <div className="layout">
-          <div className="header">
-            <span>Projects / ENV1.5</span>
-            <h1>Releases</h1>
-            <div className="tabs">
-              <div>
-                <ButtonField margin="5px" type="primary" buttonText="IN PROGRESS" />
-                <ButtonField margin="5px" type="primary" buttonText="UNRELEASED" />
-                <ButtonField margin="5px" type="primary" buttonText="RELEASED" />
-              </div>
-              <div>
-                <Input
-                  placeholder="Search..."
-                  style={{ width: 200 }}
-                  prefix={<Icon type="search" style={{ color: "black" }} />}
-                />
-              </div>
-            </div>
-          </div>
+          <Header filterVersionsByStatus={this.filterVersionsByStatus} handleSearch={this.handleSearch} />
           <div className="table-layout">
-            <Table columns={columns} dataSource={this.state.versions} size="middle" pagination={false} />
+            <Table
+              columns={columns}
+              dataSource={filteredVersions.length === 0 ? versions : filteredVersions}
+              size="middle"
+              pagination={false}
+            />
             <AddNewRelease isAdded={isAdded} addRelease={this.handleRelease} resetIsAdded={this.resetIsAdded} />
           </div>
         </div>
